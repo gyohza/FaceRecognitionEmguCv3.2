@@ -60,7 +60,7 @@ namespace FaceRecognition
             }
             else
             {
-                var result = (bool)e.Result;
+                var result = (bool) e.Result;
                 lblUsername.Text = result ? "Training has been completed successfully!" : "Training could not be completed, An Error Occurred";
             }
             //btnTrain.Enabled = true;
@@ -86,103 +86,6 @@ namespace FaceRecognition
             //imgCamUser.Image = frame;
             //if (frame != null)
             //        imgCamUser.Image = ToBitmapSource(frame);
-        }
-
-        private void btnCapture_Click(object sender, EventArgs e)
-        {
-            if (_capture == null)
-            {
-                try
-                {
-                    _capture = new VideoCapture(Emgu.CV.CvEnum.CaptureType.Winrt);
-                    
-                }
-                catch (NullReferenceException excpt)
-                {
-                    MessageBox.Show(excpt.Message);
-                }
-            }
-            //ProcessFrame(null, null);
-            if (_capture != null)
-            {
-                if (captureInProgress)
-                {  //if camera is getting frames then stop the capture and set button Text
-                    // "Start" for resuming capture
-                    Application.Idle -= ProcessFrame;
-                }
-                else
-                {
-                    //if camera is NOT getting frames then start the capture and set button
-                    // Text to "Stop" for pausing capture
-                    Application.Idle += ProcessFrame;
-                }
-
-                captureInProgress = !captureInProgress;
-            }
-
-
-        }
-        bool captureInProgress=false;
-        void ProcessFrame(object sender, EventArgs arg)
-        {
-            //_cascadeClassifier = new CascadeClassifier(Application.StartupPath + "/haarcascade_frontalface_default.xml");
-
-            using (ImageFrame = _capture.QueryFrame().ToImage<Bgr, byte>())
-            {
-
-                if (ImageFrame != null)
-                {
-                    var grayframe = ImageFrame.Convert<Gray, byte>();
-                    var faces = _cascadeClassifier.DetectMultiScale(grayframe, 1.1, 10, Size.Empty); //the actual face detection happens here
-                    int faceIndex = 1;
-                    foreach (var face in faces)
-                    {
-                        ImageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
-                        int predictedUserId;
-                        Bitmap map = ImageFrame.Copy(face).Bitmap;
-                        if (faceIndex == 1)
-                            imageBox1.Image = new Image<Rgb, byte>(map);
-                        else if (faceIndex==2)
-                            imageBox2.Image = new Image<Rgb, byte>(map);
-                        else if (faceIndex==3)
-                            imageBox3.Image = new Image<Rgb, byte>(map);
-                        faceIndex++;
-                        try
-                        {
-                            predictedUserId = _recognizerEngine.RecognizeUser(new Image<Gray, byte>(map));
-                            //Debug.WriteLine(predictedUserId);
-                        }
-                        catch { predictedUserId = -1; }
-                        if (predictedUserId == -1)
-                        {
-                            saveAFace(face, map);
-                        }
-                        else
-                        {
-                            //proceed to documents library
-                            IDataStoreAccess dataStore = new DataStoreAccess(_databasePath);
-                            var username = dataStore.GetUsername(predictedUserId);
-                            if (username != String.Empty)
-                            {
-                                lblUsername.Text =
-                                    String.Format("{1} Face Recognized as {0}",username,faces.Length);
-                            }
-                            else
-                            {
-                                saveAFace(face, map);
-                                //MessageBox.Show("No Username for this face, Kindly register this face", "Authentication Result",
-                                //MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                        }
-                    }
-                    
-                }
-
-                imgCamUser.Image = ImageFrame;  //line 2
-
-
-            }   //line 1
         }
 
         void saveAFace(Rectangle face, Bitmap ImageFrame)
