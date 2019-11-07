@@ -56,12 +56,12 @@ namespace FaceRecognition
             }
             else if (e.Cancelled)
             {
-                lblUsername.Text = "Training has been cancelled!";
+                lblUsername.Text = "Treinamento cancelado!";
             }
             else
             {
                 var result = (bool) e.Result;
-                lblUsername.Text = result ? "Training has been completed successfully!" : "Training could not be completed, An Error Occurred";
+                lblUsername.Text = result ? "Treinamento foi concluído com êxito!" : "Treinamento mal-sucedido!";
             }
             //btnTrain.Enabled = true;
         }
@@ -107,7 +107,7 @@ namespace FaceRecognition
             var result = dataStore.SaveFace(username, file);
             //_recognizerEngine.TrainRecognizer();
             bckGroundTrainer.RunWorkerAsync();
-            MessageBox.Show(result, "Save Result", MessageBoxButtons.OK);
+            MessageBox.Show(result, "Salvar resultado", MessageBoxButtons.OK);
         }
 
         void ClearTrainedFaces()
@@ -123,7 +123,7 @@ namespace FaceRecognition
                 file.Delete();
             }
 
-            MessageBox.Show(dataStore.ClearTrainedFaces(), "Save Result", MessageBoxButtons.OK);
+            MessageBox.Show(dataStore.ClearTrainedFaces(), "Salvar resultado", MessageBoxButtons.OK);
 
         }
 
@@ -136,7 +136,7 @@ namespace FaceRecognition
         {
             var img = WinformUtilities.OpenImageFile();
             string id_names = WinformUtilities.TrainImage(img);
-            MessageBox.Show(string.Format("Image computed and identified as {0}", id_names));
+            MessageBox.Show(string.Format("Imagem computada e identificada como {0}", id_names));
             //Need train multiple image of same person?
         }
 
@@ -162,7 +162,7 @@ namespace FaceRecognition
                 sb.Append(","+WinformUtilities.TrainImage(img));
             string regNames = sb.ToString();
             regNames = regNames.StartsWith(",") ? regNames.Substring(1) : regNames;
-            MessageBox.Show(string.Format("Image computed and identified as {0}", regNames));
+            MessageBox.Show(string.Format("Imagem computada e identificada como {0}", regNames));
         }
 
         private void clearTrainedDataToolStripMenuItem_Click(object sender, EventArgs e)

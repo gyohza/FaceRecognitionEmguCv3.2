@@ -83,21 +83,21 @@ namespace FaceRecognition
             this.clearTrainedDataToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.fileToolStripMenuItem.Text = "&File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.fileToolStripMenuItem.Text = "&Arquivo";
             // 
             // clearTrainedDataToolStripMenuItem
             // 
             this.clearTrainedDataToolStripMenuItem.Name = "clearTrainedDataToolStripMenuItem";
-            this.clearTrainedDataToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.clearTrainedDataToolStripMenuItem.Text = "Clear Trained Data...";
+            this.clearTrainedDataToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.clearTrainedDataToolStripMenuItem.Text = "&Limpar Dados Treinados...";
             this.clearTrainedDataToolStripMenuItem.Click += new System.EventHandler(this.clearTrainedDataToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.exitToolStripMenuItem.Text = "&Sair";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // trainToolStripMenuItem
@@ -108,32 +108,32 @@ namespace FaceRecognition
             this.toolStripSeparator1,
             this.fromMultiPicturesToolStripMenuItem});
             this.trainToolStripMenuItem.Name = "trainToolStripMenuItem";
-            this.trainToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.trainToolStripMenuItem.Text = "&Train";
+            this.trainToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.trainToolStripMenuItem.Text = "&Treinar";
             // 
             // fromPictureToolStripMenuItem
             // 
             this.fromPictureToolStripMenuItem.Name = "fromPictureToolStripMenuItem";
-            this.fromPictureToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.fromPictureToolStripMenuItem.Text = "From &Picture";
+            this.fromPictureToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.fromPictureToolStripMenuItem.Text = "Utilizar &Imagem";
             this.fromPictureToolStripMenuItem.Click += new System.EventHandler(this.fromPictureToolStripMenuItem_Click);
             // 
             // fromVideoToolStripMenuItem
             // 
             this.fromVideoToolStripMenuItem.Name = "fromVideoToolStripMenuItem";
-            this.fromVideoToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.fromVideoToolStripMenuItem.Text = "From &Video";
+            this.fromVideoToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.fromVideoToolStripMenuItem.Text = "Utilizar &Vídeo";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(222, 6);
             // 
             // fromMultiPicturesToolStripMenuItem
             // 
             this.fromMultiPicturesToolStripMenuItem.Name = "fromMultiPicturesToolStripMenuItem";
-            this.fromMultiPicturesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.fromMultiPicturesToolStripMenuItem.Text = "From Multi Pictures";
+            this.fromMultiPicturesToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.fromMultiPicturesToolStripMenuItem.Text = "Utilizar &Múltiplas Imagens";
             this.fromMultiPicturesToolStripMenuItem.Click += new System.EventHandler(this.fromMultiPicturesToolStripMenuItem_Click);
             // 
             // recognizeToolStripMenuItem
@@ -142,21 +142,21 @@ namespace FaceRecognition
             this.fromPictureToolStripMenuItem1,
             this.fromVideoToolStripMenuItem1});
             this.recognizeToolStripMenuItem.Name = "recognizeToolStripMenuItem";
-            this.recognizeToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.recognizeToolStripMenuItem.Text = "&Recognize";
+            this.recognizeToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.recognizeToolStripMenuItem.Text = "&Reconhecer";
             // 
             // fromPictureToolStripMenuItem1
             // 
             this.fromPictureToolStripMenuItem1.Name = "fromPictureToolStripMenuItem1";
-            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
-            this.fromPictureToolStripMenuItem1.Text = "From &Picture";
+            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.fromPictureToolStripMenuItem1.Text = "Utilizar &Imagem";
             this.fromPictureToolStripMenuItem1.Click += new System.EventHandler(this.fromPictureToolStripMenuItem1_Click);
             // 
             // fromVideoToolStripMenuItem1
             // 
             this.fromVideoToolStripMenuItem1.Name = "fromVideoToolStripMenuItem1";
-            this.fromVideoToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
-            this.fromVideoToolStripMenuItem1.Text = "From &Video";
+            this.fromVideoToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.fromVideoToolStripMenuItem1.Text = "Utilizar &Vídeo";
             // 
             // lblUsername
             // 
