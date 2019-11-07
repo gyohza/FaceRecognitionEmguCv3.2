@@ -102,7 +102,7 @@ namespace FaceRecognition
                     catch { predictedUserId = -1; }
                     if (predictedUserId == -1)
                     {
-                        string name = string.IsNullOrEmpty(preName)?PromptForName("Xác Định Tên", "Nhập tên", map): preName;
+                        string name = string.IsNullOrEmpty(preName)?PromptForName("Identification", "Insert person's name", map): preName;
                         saveAFace(map, name);
                         names.Add(name);
                     }
@@ -115,7 +115,7 @@ namespace FaceRecognition
                         {
                             if(preName!=username)
                             { 
-                                string name = PromptForName("Xác Nhận Tên", "Nhập tên", map,username);
+                                string name = PromptForName("Identification", "Insert person's name", map, username);
                                 if(name!=username && name!=preName)
                                     saveAFace(map, name);
                                 names.Add(name);
@@ -123,7 +123,7 @@ namespace FaceRecognition
                         }
                         else
                         {
-                            string name = string.IsNullOrEmpty(preName) ? PromptForName("Xác Định Tên", "Nhập tên", map):preName;
+                            string name = string.IsNullOrEmpty(preName) ? PromptForName("Identification", "Insert person's name", map):preName;
                             saveAFace(map, name);
                             names.Add(name);
                         }

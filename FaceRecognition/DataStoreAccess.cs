@@ -166,7 +166,6 @@ namespace FaceRecognition
             return usernames;
         }
 
-
         public bool DeleteUser(string username)
         {
             var toReturn = false;
@@ -181,6 +180,29 @@ namespace FaceRecognition
             }
             catch (Exception ex)
             {
+                return toReturn;
+            }
+            finally
+            {
+                _sqLiteConnection.Close();
+            }
+            return toReturn;
+        }
+
+        public string ClearTrainedFaces()
+        {
+            var toReturn = "";
+            try
+            {
+                _sqLiteConnection.Open();
+                var query = "DELETE FROM faces; VACUUM;";
+                var cmd = new SQLiteCommand(query, _sqLiteConnection);
+                var result = cmd.ExecuteNonQuery();
+                toReturn = "Database cleared.";
+            }
+            catch (Exception ex)
+            {
+                toReturn = "Failed to clear database:" + ex.Message;
                 return toReturn;
             }
             finally
@@ -205,8 +227,5 @@ namespace FaceRecognition
         {
             throw new NotImplementedException();
         }
-
-
-
     }
 }

@@ -25,5 +25,7 @@ namespace FaceRecognition
         String GetUsername(int userId);
 
         List<String> GetAllUsernames();
+
+        string ClearTrainedFaces();
     }
 }

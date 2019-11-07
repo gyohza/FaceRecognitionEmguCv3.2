@@ -207,6 +207,23 @@ namespace FaceRecognition
             MessageBox.Show(result, "Save Result", MessageBoxButtons.OK);
         }
 
+        void ClearTrainedFaces()
+        {
+
+            IDataStoreAccess dataStore = new DataStoreAccess(_databasePath);
+
+            var username = Guid.NewGuid().ToString();
+
+            var filePath = Application.StartupPath + String.Format("/{0}.bmp", username);
+
+            foreach (var file in new DirectoryInfo(Application.StartupPath).GetFiles("*.bmp")) {
+                file.Delete();
+            }
+
+            MessageBox.Show(dataStore.ClearTrainedFaces(), "Save Result", MessageBoxButtons.OK);
+
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -216,7 +233,7 @@ namespace FaceRecognition
         {
             var img = WinformUtilities.OpenImageFile();
             string id_names = WinformUtilities.TrainImage(img);
-            MessageBox.Show(string.Format("Xác định được những người sau: {0}", id_names));
+            MessageBox.Show(string.Format("Image computed and identified as {0}", id_names));
             //Need train multiple image of same person?
         }
 
@@ -242,7 +259,12 @@ namespace FaceRecognition
                 sb.Append(","+WinformUtilities.TrainImage(img));
             string regNames = sb.ToString();
             regNames = regNames.StartsWith(",") ? regNames.Substring(1) : regNames;
-            MessageBox.Show(string.Format("Xác định được những người sau: {0}", regNames));
+            MessageBox.Show(string.Format("Image computed and identified as {0}", regNames));
+        }
+
+        private void clearTrainedDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearTrainedFaces();
         }
     }
 

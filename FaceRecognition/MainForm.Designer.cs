@@ -44,12 +44,13 @@ namespace FaceRecognition
             this.fromPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromWebcamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fromMultiPicturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recognizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromPictureToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fromVideoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fromWebcamToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.fromMultiPicturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearTrainedDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox2)).BeginInit();
@@ -134,15 +135,16 @@ namespace FaceRecognition
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearTrainedDataToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -155,27 +157,39 @@ namespace FaceRecognition
             this.toolStripSeparator1,
             this.fromMultiPicturesToolStripMenuItem});
             this.trainToolStripMenuItem.Name = "trainToolStripMenuItem";
-            this.trainToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.trainToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.trainToolStripMenuItem.Text = "&Train";
             // 
             // fromPictureToolStripMenuItem
             // 
             this.fromPictureToolStripMenuItem.Name = "fromPictureToolStripMenuItem";
-            this.fromPictureToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fromPictureToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.fromPictureToolStripMenuItem.Text = "From &Picture";
             this.fromPictureToolStripMenuItem.Click += new System.EventHandler(this.fromPictureToolStripMenuItem_Click);
             // 
             // fromVideoToolStripMenuItem
             // 
             this.fromVideoToolStripMenuItem.Name = "fromVideoToolStripMenuItem";
-            this.fromVideoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fromVideoToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.fromVideoToolStripMenuItem.Text = "From &Video";
             // 
             // fromWebcamToolStripMenuItem
             // 
             this.fromWebcamToolStripMenuItem.Name = "fromWebcamToolStripMenuItem";
-            this.fromWebcamToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fromWebcamToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.fromWebcamToolStripMenuItem.Text = "From &Webcam";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            // 
+            // fromMultiPicturesToolStripMenuItem
+            // 
+            this.fromMultiPicturesToolStripMenuItem.Name = "fromMultiPicturesToolStripMenuItem";
+            this.fromMultiPicturesToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.fromMultiPicturesToolStripMenuItem.Text = "From Multi Pictures";
+            this.fromMultiPicturesToolStripMenuItem.Click += new System.EventHandler(this.fromMultiPicturesToolStripMenuItem_Click);
             // 
             // recognizeToolStripMenuItem
             // 
@@ -184,39 +198,34 @@ namespace FaceRecognition
             this.fromVideoToolStripMenuItem1,
             this.fromWebcamToolStripMenuItem1});
             this.recognizeToolStripMenuItem.Name = "recognizeToolStripMenuItem";
-            this.recognizeToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.recognizeToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.recognizeToolStripMenuItem.Text = "&Recognize";
             // 
             // fromPictureToolStripMenuItem1
             // 
             this.fromPictureToolStripMenuItem1.Name = "fromPictureToolStripMenuItem1";
-            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.fromPictureToolStripMenuItem1.Text = "From &Picture";
             this.fromPictureToolStripMenuItem1.Click += new System.EventHandler(this.fromPictureToolStripMenuItem1_Click);
             // 
             // fromVideoToolStripMenuItem1
             // 
             this.fromVideoToolStripMenuItem1.Name = "fromVideoToolStripMenuItem1";
-            this.fromVideoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fromVideoToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.fromVideoToolStripMenuItem1.Text = "From &Video";
             // 
             // fromWebcamToolStripMenuItem1
             // 
             this.fromWebcamToolStripMenuItem1.Name = "fromWebcamToolStripMenuItem1";
-            this.fromWebcamToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.fromWebcamToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.fromWebcamToolStripMenuItem1.Text = "From &Webcam";
             // 
-            // toolStripSeparator1
+            // clearTrainedDataToolStripMenuItem
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
-            // 
-            // fromMultiPicturesToolStripMenuItem
-            // 
-            this.fromMultiPicturesToolStripMenuItem.Name = "fromMultiPicturesToolStripMenuItem";
-            this.fromMultiPicturesToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.fromMultiPicturesToolStripMenuItem.Text = "From Multi Pictures";
-            this.fromMultiPicturesToolStripMenuItem.Click += new System.EventHandler(this.fromMultiPicturesToolStripMenuItem_Click);
+            this.clearTrainedDataToolStripMenuItem.Name = "clearTrainedDataToolStripMenuItem";
+            this.clearTrainedDataToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.clearTrainedDataToolStripMenuItem.Text = "Clear Trained Data...";
+            this.clearTrainedDataToolStripMenuItem.Click += new System.EventHandler(this.clearTrainedDataToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -267,6 +276,7 @@ namespace FaceRecognition
         private System.Windows.Forms.ToolStripMenuItem fromWebcamToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem fromMultiPicturesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearTrainedDataToolStripMenuItem;
     }
 }
 
