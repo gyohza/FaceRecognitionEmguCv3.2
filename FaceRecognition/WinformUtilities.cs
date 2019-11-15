@@ -10,11 +10,10 @@ namespace FaceRecognition
 {
     public class WinformUtilities
     {
-        public static Image OpenImageFile(string Title= "Open image for training")
+        public static Image OpenImageFile(string Title= "Abrir imagem(s) para treinamento")
         {
             OpenFileDialog fdlg = new OpenFileDialog();
             fdlg.Title = Title;
-            fdlg.InitialDirectory = @"c:\";
             fdlg.Filter = "Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
             fdlg.FilterIndex = 2;
             fdlg.RestoreDirectory = true;
@@ -25,11 +24,10 @@ namespace FaceRecognition
             else return null;
         }
 
-        public static List<Image> OpenMultiImageFile(string Title = "Open image for training")
+        public static List<Image> OpenMultiImageFile(string Title = "Abrir imagem(s) para treinamento")
         {
             OpenFileDialog fdlg = new OpenFileDialog();
             fdlg.Title = Title;
-            fdlg.InitialDirectory = @"c:\";
             fdlg.Filter = "Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
             fdlg.FilterIndex = 2;
             fdlg.RestoreDirectory = true;
@@ -99,7 +97,7 @@ namespace FaceRecognition
                     catch { predictedUserId = -1; }
                     if (predictedUserId == -1)
                     {
-                        string name = string.IsNullOrEmpty(preName)?PromptForName("Identification", "Insert person's name", map): preName;
+                        string name = string.IsNullOrEmpty(preName)?PromptForName("Identificação", "Insira o nome da pessoa", map): preName;
                         saveAFace(map, name);
                         names.Add(name);
                     }
@@ -112,7 +110,7 @@ namespace FaceRecognition
                         {
                             if(preName!=username)
                             { 
-                                string name = PromptForName("Identification", "Insert person's name", map, username);
+                                string name = PromptForName("Identificação", "Insira o nome da pessoa", map, username);
                                 if(name!=username && name!=preName)
                                     saveAFace(map, name);
                                 names.Add(name);
@@ -120,7 +118,7 @@ namespace FaceRecognition
                         }
                         else
                         {
-                            string name = string.IsNullOrEmpty(preName) ? PromptForName("Identification", "Insert person's name", map):preName;
+                            string name = string.IsNullOrEmpty(preName) ? PromptForName("Identificação", "Insira o nome da pessoa", map):preName;
                             saveAFace(map, name);
                             names.Add(name);
                         }
@@ -192,8 +190,6 @@ namespace FaceRecognition
                 }
             }
             return dataStore.SaveFace(username, file);
-            //_recognizerEngine.TrainRecognizer();
-            //MessageBox.Show(result, "Save Result", MessageBoxButtons.OK);
         }
     }
 }
