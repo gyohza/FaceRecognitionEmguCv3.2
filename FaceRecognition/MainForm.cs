@@ -61,7 +61,6 @@ namespace FaceRecognition
             }
         }
 
-        VideoCapture _capture = new VideoCapture(Emgu.CV.CvEnum.CaptureType.Winrt);
         private CascadeClassifier _cascadeClassifier;
         private RecognizerEngine _recognizerEngine;
         private readonly String _databasePath = Application.StartupPath + "/face_store.db";
@@ -135,7 +134,7 @@ namespace FaceRecognition
             var imgs = WinformUtilities.OpenMultiImageFile();
             List<string> processed = new List<string>();
             foreach (var img in imgs)
-                processed.Add(WinformUtilities.TrainImage(img)); //Append("," + WinformUtilities.TrainImage(img));
+                processed.Add(WinformUtilities.TrainImage(img));
             string regNames = String.Join("\n", processed.Where(v => v.Length > 0));
             MessageBox.Show(
                 regNames.Length > 0 ?

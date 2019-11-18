@@ -38,10 +38,8 @@ namespace FaceRecognition
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromMultiPicturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recognizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromPictureToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromVideoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblUsername = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -101,8 +99,7 @@ namespace FaceRecognition
             // trainToolStripMenuItem
             // 
             this.trainToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromMultiPicturesToolStripMenuItem,
-            this.fromVideoToolStripMenuItem});
+            this.fromMultiPicturesToolStripMenuItem});
             this.trainToolStripMenuItem.Name = "trainToolStripMenuItem";
             this.trainToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.trainToolStripMenuItem.Text = "&Treinar";
@@ -114,17 +111,10 @@ namespace FaceRecognition
             this.fromMultiPicturesToolStripMenuItem.Text = "Utilizar &Imagens";
             this.fromMultiPicturesToolStripMenuItem.Click += new System.EventHandler(this.fromMultiPicturesToolStripMenuItem_Click);
             // 
-            // fromVideoToolStripMenuItem
-            // 
-            this.fromVideoToolStripMenuItem.Name = "fromVideoToolStripMenuItem";
-            this.fromVideoToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.fromVideoToolStripMenuItem.Text = "Utilizar &Vídeo";
-            // 
             // recognizeToolStripMenuItem
             // 
             this.recognizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromPictureToolStripMenuItem1,
-            this.fromVideoToolStripMenuItem1});
+            this.fromPictureToolStripMenuItem1});
             this.recognizeToolStripMenuItem.Name = "recognizeToolStripMenuItem";
             this.recognizeToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.recognizeToolStripMenuItem.Text = "&Reconhecer";
@@ -132,15 +122,9 @@ namespace FaceRecognition
             // fromPictureToolStripMenuItem1
             // 
             this.fromPictureToolStripMenuItem1.Name = "fromPictureToolStripMenuItem1";
-            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.fromPictureToolStripMenuItem1.Text = "Utilizar &Imagem";
             this.fromPictureToolStripMenuItem1.Click += new System.EventHandler(this.fromPictureToolStripMenuItem1_Click);
-            // 
-            // fromVideoToolStripMenuItem1
-            // 
-            this.fromVideoToolStripMenuItem1.Name = "fromVideoToolStripMenuItem1";
-            this.fromVideoToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.fromVideoToolStripMenuItem1.Text = "Utilizar &Vídeo";
             // 
             // lblUsername
             // 
@@ -181,10 +165,8 @@ namespace FaceRecognition
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trainToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fromVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recognizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromPictureToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem fromVideoToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fromMultiPicturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearTrainedDataToolStripMenuItem;
         private System.Windows.Forms.Label lblUsername;
