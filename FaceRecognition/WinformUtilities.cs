@@ -10,7 +10,7 @@ namespace FaceRecognition
 {
     public class WinformUtilities
     {
-        public static Image OpenImageFile(string Title= "Abrir imagem(s) para treinamento")
+        public static Image OpenImageFile(string Title = "Abrir imagem(s) para treinamento")
         {
             OpenFileDialog fdlg = new OpenFileDialog();
             fdlg.Title = Title;
@@ -42,19 +42,49 @@ namespace FaceRecognition
             else return null;
         }
 
-        public static string PromptForName(string caption, string text, Image img, string defaultName="")
+        public static string PromptForName(string caption, string text, Image img, string defaultName = "")
         {
-            Form prompt = new Form();
-            prompt.Width = 120;
-            prompt.Height = 200;
-            prompt.Text = caption;
-            Label textLabel = new Label() { Left = 10, Top = 20, Width = 110, Text = text };
-            TextBox textBox = new TextBox() { Left = 10, Top = 40, Width = 110, TabIndex = 0, TabStop = true, Text=defaultName };
-            
-            PictureBox pictureBox = new PictureBox() { Left = 10, Top = 70, Width = 100, Height=100 };
-            pictureBox.Image = img;
-            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            Button confirmation = new Button() { Text = "Save", Left = 20, Width = 80, Top = 180, TabIndex = 1, TabStop = true };
+            Form prompt = new Form()
+            {
+                Width = 200,
+                Height = 300,
+                Text = caption
+            };
+            Label textLabel = new Label()
+            {
+                Left = 10,
+                Top = 20,
+                Width = 160,
+                Text = text
+            };
+            TextBox textBox = new TextBox()
+            {
+                Left = 10,
+                Top = 50,
+                Width = 110,
+                Height = 40,
+                TabIndex = 0,
+                TabStop = true,
+                Text = defaultName
+            };
+            PictureBox pictureBox = new PictureBox()
+            {
+                Left = 10,
+                Top = 80,
+                Width = 150,
+                Height = 150,
+                Image = img,
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+            Button confirmation = new Button()
+            {
+                Text = "Save",
+                Left = 20,
+                Width = 80,
+                Top = 190,
+                TabIndex = 1,
+                TabStop = true
+            };
             confirmation.Click += (sender, e) => { prompt.Close(); };
             prompt.Controls.Add(textLabel);
             prompt.Controls.Add(textBox);
@@ -63,20 +93,23 @@ namespace FaceRecognition
             prompt.AcceptButton = confirmation;
             prompt.StartPosition = FormStartPosition.CenterScreen;
             prompt.ShowDialog();
-            return string.IsNullOrEmpty(textBox.Text)?Guid.NewGuid().ToString(): textBox.Text;
+            return string.IsNullOrEmpty(textBox.Text) ? Guid.NewGuid().ToString() : textBox.Text;
         }
+
         private static readonly String _databasePath = Application.StartupPath + "/face_store.db";
+
         private static readonly String _trainerDataPath = Application.StartupPath + "/traineddata";
+
         private static readonly CascadeClassifier _cascadeClassifier = new CascadeClassifier(Application.StartupPath + "/haarcascade_frontalface_alt2.xml");
 
-        public static string TrainImage(Image img, string preName="")
+        public static string TrainImage(Image img, string preName = "")
         {
             if (img == null) return "";
             using (var ImageFrame = new Image<Bgr, Byte>(new Bitmap(img)))
             {
-                
+
                 var _recognizerEngine = new RecognizerEngine(_databasePath, _trainerDataPath);
-                
+
                 if (ImageFrame == null)
                     return null;
 
@@ -97,7 +130,7 @@ namespace FaceRecognition
                     catch { predictedUserId = -1; }
                     if (predictedUserId == -1)
                     {
-                        string name = string.IsNullOrEmpty(preName)?PromptForName("Identificação", "Insira o nome da pessoa", map): preName;
+                        string name = string.IsNullOrEmpty(preName) ? PromptForName("Identificação", "Identifique a pessoa", map) : preName;
                         saveAFace(map, name);
                         names.Add(name);
                     }
@@ -108,17 +141,17 @@ namespace FaceRecognition
                         var username = dataStore.GetUsername(predictedUserId);
                         if (username != String.Empty)
                         {
-                            if(preName!=username)
-                            { 
-                                string name = PromptForName("Identificação", "Insira o nome da pessoa", map, username);
-                                if(name!=username && name!=preName)
+                            if (preName != username)
+                            {
+                                string name = PromptForName("Identificação", "Identifique a pessoa", map, username);
+                                if (name != username && name != preName)
                                     saveAFace(map, name);
                                 names.Add(name);
                             }
                         }
                         else
                         {
-                            string name = string.IsNullOrEmpty(preName) ? PromptForName("Identificação", "Insira o nome da pessoa", map):preName;
+                            string name = string.IsNullOrEmpty(preName) ? PromptForName("Identificação", "Insira o nome da pessoa", map) : preName;
                             saveAFace(map, name);
                             names.Add(name);
                         }
@@ -165,7 +198,7 @@ namespace FaceRecognition
                         var username = dataStore.GetUsername(predictedUserId);
                         if (username != String.Empty)
                         {
-                            ImageFrame.Draw(username, new Point(face.X,face.Y), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new Bgr(Color.Red),2);
+                            ImageFrame.Draw(username, new Point(face.X, face.Y), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new Bgr(Color.Red), 2);
                         }
                     }
                 }
@@ -179,7 +212,7 @@ namespace FaceRecognition
             Byte[] file;
             IDataStoreAccess dataStore = new DataStoreAccess(_databasePath);
 
-            var username = string.IsNullOrEmpty(name)?Guid.NewGuid().ToString():name;
+            var username = string.IsNullOrEmpty(name) ? Guid.NewGuid().ToString() : name;
             var filePath = Application.StartupPath + String.Format("/{0}.bmp", username);
             faceToSave.ToBitmap().Save(filePath);
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))

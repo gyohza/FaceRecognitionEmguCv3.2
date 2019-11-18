@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace FaceRecognition
 {
     public partial class MainForm : Form
@@ -54,31 +57,20 @@ namespace FaceRecognition
             else
             {
                 var result = (bool) e.Result;
-                lblUsername.Text = result ? "Treinamento foi concluído com êxito!" : "Treinamento mal-sucedido!";
+                lblUsername.Text = result ? "Treinamento foi concluído com êxito!" : "Treinamento mal sucedido!";
             }
-            //btnTrain.Enabled = true;
         }
 
         VideoCapture _capture = new VideoCapture(Emgu.CV.CvEnum.CaptureType.Winrt);
-        Image<Bgr, byte> ImageFrame;
         private CascadeClassifier _cascadeClassifier;
-        private bool _hasRecognizedFace;
         private RecognizerEngine _recognizerEngine;
         private readonly String _databasePath = Application.StartupPath + "/face_store.db";
         private readonly String _trainerDataPath = Application.StartupPath + "/traineddata";
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //Train the recognizer here
             _recognizerEngine = new RecognizerEngine(_databasePath, _trainerDataPath);
             bckGroundTrainer.RunWorkerAsync();
             _cascadeClassifier = new CascadeClassifier(Application.StartupPath + "/haarcascade_frontalface_alt2.xml");
-            //_capture = new VideoCapture(Emgu.CV.CvEnum.CaptureType.Winrt);
-            //Application.Idle += new EventHandler(ProcessFrame);
-            //Mat frame = new Mat();
-            //_capture.Retrieve(frame);
-            //imgCamUser.Image = frame;
-            //if (frame != null)
-            //        imgCamUser.Image = ToBitmapSource(frame);
         }
 
         void saveAFace(Rectangle face, Bitmap ImageFrame)
@@ -98,7 +90,6 @@ namespace FaceRecognition
                 }
             }
             var result = dataStore.SaveFace(username, file);
-            //_recognizerEngine.TrainRecognizer();
             bckGroundTrainer.RunWorkerAsync();
             MessageBox.Show(result, "Salvar resultado", MessageBoxButtons.OK);
         }
@@ -125,14 +116,6 @@ namespace FaceRecognition
             Application.Exit();
         }
 
-        private void fromPictureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var img = WinformUtilities.OpenImageFile();
-            string id_names = WinformUtilities.TrainImage(img);
-            MessageBox.Show(string.Format("Imagem computada e identificada como {0}", id_names));
-            //Need train multiple image of same person?
-        }
-
         private void fromPictureToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var img = WinformUtilities.OpenImageFile();
@@ -150,12 +133,15 @@ namespace FaceRecognition
         private void fromMultiPicturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var imgs = WinformUtilities.OpenMultiImageFile();
-            StringBuilder sb = new StringBuilder();
-            foreach(var img in imgs)
-                sb.Append(","+WinformUtilities.TrainImage(img));
-            string regNames = sb.ToString();
-            regNames = regNames.StartsWith(",") ? regNames.Substring(1) : regNames;
-            MessageBox.Show(string.Format("Imagem computada e identificada como {0}", regNames));
+            List<string> processed = new List<string>();
+            foreach (var img in imgs)
+                processed.Add(WinformUtilities.TrainImage(img)); //Append("," + WinformUtilities.TrainImage(img));
+            string regNames = String.Join("\n", processed.Where(v => v.Length > 0));
+            MessageBox.Show(
+                regNames.Length > 0 ?
+                string.Format("Imagens processadas:\n\n{0}", regNames)
+                : "Nenhuma imagem válida processada."
+            );
         }
 
         private void clearTrainedDataToolStripMenuItem_Click(object sender, EventArgs e)
