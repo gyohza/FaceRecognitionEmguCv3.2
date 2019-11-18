@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FaceRecognition
 {
@@ -198,11 +196,11 @@ namespace FaceRecognition
                 var query = "DELETE FROM faces; VACUUM;";
                 var cmd = new SQLiteCommand(query, _sqLiteConnection);
                 var result = cmd.ExecuteNonQuery();
-                toReturn = "Database cleared.";
+                toReturn = "Base resetada.";
             }
             catch (Exception ex)
             {
-                toReturn = "Failed to clear database:" + ex.Message;
+                toReturn = "Falha no reset:" + ex.Message;
                 return toReturn;
             }
             finally
