@@ -114,8 +114,11 @@ namespace FaceRecognition
                     return null;
 
                 var grayframe = ImageFrame.Convert<Gray, byte>();
+
                 var faces = _cascadeClassifier.DetectMultiScale(grayframe, 1.1, 10, Size.Empty); //the actual face detection happens here
+
                 //int faceIndex = 1;
+
                 List<string> names = new List<string>();
                 foreach (var face in faces)
                 {
@@ -170,23 +173,37 @@ namespace FaceRecognition
 
                 var _recognizerEngine = new RecognizerEngine(_databasePath, _trainerDataPath);
                 _recognizerEngine.TrainRecognizer();
-                if (ImageFrame == null)
-                    return null;
+                if ( ImageFrame == null )
+                {
+                    System.Windows.Forms.MessageBox.Show( "Nenhuma imagem fornecida." );
+                }
 
                 var grayframe = ImageFrame.Convert<Gray, byte>();
+
                 var faces = _cascadeClassifier.DetectMultiScale(grayframe, 1.1, 10, Size.Empty); //the actual face detection happens here
+
+                if (faces.Length == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show( "Nenhum rosto foi identifcado." );
+                }
+
                 //int faceIndex = 1;
                 foreach (var face in faces)
                 {
+
                     ImageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
+
                     int predictedUserId;
+
                     Bitmap map = ImageFrame.Copy(face).Bitmap;
+
                     try
                     {
                         predictedUserId = _recognizerEngine.RecognizeUser(new Image<Gray, byte>(map));
                         //Debug.WriteLine(predictedUserId);
                     }
                     catch { predictedUserId = -1; }
+
                     if (predictedUserId == -1)
                     {
                         continue;
@@ -202,7 +219,9 @@ namespace FaceRecognition
                         }
                     }
                 }
+
                 return ImageFrame.Copy();
+
             }
         }
 

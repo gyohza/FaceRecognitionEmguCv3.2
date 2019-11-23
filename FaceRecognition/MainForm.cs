@@ -25,7 +25,6 @@ namespace FaceRecognition
 
         private void bckGroundTrainer_DoWork(object sender, DoWorkEventArgs e)
         {
-
             var worker = sender as BackgroundWorker;
             e.Result = TrainRecognizer(worker, e);
         }
@@ -52,12 +51,11 @@ namespace FaceRecognition
             }
             else if (e.Cancelled)
             {
-                lblUsername.Text = "Treinamento cancelado!";
+                System.Windows.Forms.MessageBox.Show( "Treinamento cancelado." );
             }
             else
             {
                 var result = (bool) e.Result;
-                lblUsername.Text = result ? "Treinamento foi concluído com êxito!" : "Treinamento mal sucedido!";
             }
         }
 
@@ -129,23 +127,42 @@ namespace FaceRecognition
             }
         }
 
-        private void fromMultiPicturesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var imgs = WinformUtilities.OpenMultiImageFile();
-            List<string> processed = new List<string>();
-            foreach (var img in imgs)
-                processed.Add(WinformUtilities.TrainImage(img));
-            string regNames = String.Join("\n", processed.Where(v => v.Length > 0));
-            MessageBox.Show(
-                regNames.Length > 0 ?
-                string.Format("Imagens processadas:\n\n{0}", regNames)
-                : "Nenhuma imagem válida processada."
-            );
-        }
-
         private void clearTrainedDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearTrainedFaces();
+        }
+
+        private void entrarToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var img = WinformUtilities.OpenImageFile();
+            try
+            {
+                var img1 = WinformUtilities.RecognizeImage( img );
+                imgCamUser.Image = img1;
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.ToString() );
+            }
+        }
+
+        private void cadastrarToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var imgs = WinformUtilities.OpenMultiImageFile();
+
+            List<string> processed = new List<string>();
+
+            if ( imgs == null )
+                return;
+
+            foreach ( var img in imgs )
+                processed.Add( WinformUtilities.TrainImage( img ) );
+            string regNames = String.Join( "\n", processed.Where( v => v.Length > 0 ) );
+            MessageBox.Show(
+                regNames.Length > 0 ?
+                string.Format( "Imagens processadas:\n\n{0}", regNames )
+                : "Nenhuma imagem válida processada."
+            );
         }
     }
 

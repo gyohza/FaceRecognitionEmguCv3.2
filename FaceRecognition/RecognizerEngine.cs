@@ -14,8 +14,11 @@ namespace FaceRecognition
 {
     class RecognizerEngine
     {
+
         private FaceRecognizer _faceRecognizer;
+
         private DataStoreAccess _dataStoreAccess;
+
         private String _recognizerFilePath;
 
         public RecognizerEngine(String databasePath, String recognizerFilePath)
@@ -67,8 +70,13 @@ namespace FaceRecognition
                 System.Diagnostics.Debug.WriteLine(result.Label + " - " + result.Distance);
                 return result.Label;//result.Distance < 100 ? result.Label : -1;
             }
-            catch (Exception ex) { if(ex.Message!= "OpenCV: Unsupported file storage format") System.Windows.Forms.MessageBox.Show(ex.Message);
-                }
+            catch (Exception ex)
+            {
+                if ( ex.Message != "OpenCV: Unsupported file storage format" )
+                    System.Windows.Forms.MessageBox.Show( "Mensagem de erro desconhecida:" + ex.Message );
+                else
+                    System.Windows.Forms.MessageBox.Show( "A imagem fornecida não possui um formato válido." );
+            }
 
             return -1;
             
