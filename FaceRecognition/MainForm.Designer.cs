@@ -31,7 +31,7 @@ namespace FaceRecognition
         {
             this.components = new System.ComponentModel.Container();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.imgCamUser = new Emgu.CV.UI.ImageBox();
+            this.img = new Emgu.CV.UI.ImageBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTrainedDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +41,7 @@ namespace FaceRecognition
             this.entrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.msg = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.img)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,15 +51,15 @@ namespace FaceRecognition
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // imgCamUser
+            // img
             // 
-            this.imgCamUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.imgCamUser.Location = new System.Drawing.Point(15, 65);
-            this.imgCamUser.Name = "imgCamUser";
-            this.imgCamUser.Size = new System.Drawing.Size(400, 311);
-            this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgCamUser.TabIndex = 2;
-            this.imgCamUser.TabStop = false;
+            this.img.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.img.Location = new System.Drawing.Point(15, 65);
+            this.img.Name = "img";
+            this.img.Size = new System.Drawing.Size(400, 311);
+            this.img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.img.TabIndex = 2;
+            this.img.TabStop = false;
             // 
             // menuStrip1
             // 
@@ -124,25 +124,28 @@ namespace FaceRecognition
             // 
             // msg
             // 
+            this.msg.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msg.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.msg.Location = new System.Drawing.Point(12, 24);
             this.msg.Name = "msg";
             this.msg.Size = new System.Drawing.Size(400, 38);
-            this.msg.TabIndex = 9;
+            this.msg.TabIndex = 1;
             this.msg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(424, 386);
             this.Controls.Add(this.msg);
-            this.Controls.Add(this.imgCamUser);
+            this.Controls.Add(this.img);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(440, 425);
+            this.MinimumSize = new System.Drawing.Size(440, 425);
             this.Name = "MainForm";
             this.Text = "Face Recognition";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.img)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -153,7 +156,7 @@ namespace FaceRecognition
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
-        private Emgu.CV.UI.ImageBox imgCamUser;
+        private Emgu.CV.UI.ImageBox img;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
