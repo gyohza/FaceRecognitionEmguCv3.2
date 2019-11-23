@@ -193,7 +193,7 @@ namespace FaceRecognition
             try
             {
                 _sqLiteConnection.Open();
-                var query = "DELETE FROM faces; VACUUM;";
+                var query = "DELETE FROM faces; VACUUM; DELETE FROM username; VACUUM;";
                 var cmd = new SQLiteCommand(query, _sqLiteConnection);
                 var result = cmd.ExecuteNonQuery();
                 toReturn = "Base resetada.";

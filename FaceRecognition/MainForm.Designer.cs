@@ -31,19 +31,17 @@ namespace FaceRecognition
         {
             this.components = new System.ComponentModel.Container();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.imgCamUser = new Emgu.CV.UI.ImageBox();
+            this.img = new Emgu.CV.UI.ImageBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTrainedDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromMultiPicturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recognizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromPictureToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromVideoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblUsername = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
+            this.cadastrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.entrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.msg = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.img)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,22 +51,20 @@ namespace FaceRecognition
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // imgCamUser
+            // img
             // 
-            this.imgCamUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.imgCamUser.Location = new System.Drawing.Point(12, 27);
-            this.imgCamUser.Name = "imgCamUser";
-            this.imgCamUser.Size = new System.Drawing.Size(400, 310);
-            this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgCamUser.TabIndex = 2;
-            this.imgCamUser.TabStop = false;
+            this.img.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.img.Location = new System.Drawing.Point(15, 65);
+            this.img.Name = "img";
+            this.img.Size = new System.Drawing.Size(400, 311);
+            this.img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.img.TabIndex = 2;
+            this.img.TabStop = false;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.trainToolStripMenuItem,
-            this.recognizeToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(424, 24);
@@ -78,6 +74,10 @@ namespace FaceRecognition
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.entrarToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.cadastrarToolStripMenuItem,
+            this.toolStripSeparator1,
             this.clearTrainedDataToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -98,74 +98,54 @@ namespace FaceRecognition
             this.exitToolStripMenuItem.Text = "&Sair";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // trainToolStripMenuItem
+            // cadastrarToolStripMenuItem
             // 
-            this.trainToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromMultiPicturesToolStripMenuItem,
-            this.fromVideoToolStripMenuItem});
-            this.trainToolStripMenuItem.Name = "trainToolStripMenuItem";
-            this.trainToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.trainToolStripMenuItem.Text = "&Treinar";
+            this.cadastrarToolStripMenuItem.Name = "cadastrarToolStripMenuItem";
+            this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.cadastrarToolStripMenuItem.Text = "&Cadastrar";
+            this.cadastrarToolStripMenuItem.Click += new System.EventHandler(this.cadastrarToolStripMenuItem_Click);
             // 
-            // fromMultiPicturesToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.fromMultiPicturesToolStripMenuItem.Name = "fromMultiPicturesToolStripMenuItem";
-            this.fromMultiPicturesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fromMultiPicturesToolStripMenuItem.Text = "Utilizar &Imagens";
-            this.fromMultiPicturesToolStripMenuItem.Click += new System.EventHandler(this.fromMultiPicturesToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(225, 6);
             // 
-            // fromVideoToolStripMenuItem
+            // entrarToolStripMenuItem
             // 
-            this.fromVideoToolStripMenuItem.Name = "fromVideoToolStripMenuItem";
-            this.fromVideoToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.fromVideoToolStripMenuItem.Text = "Utilizar &Vídeo";
+            this.entrarToolStripMenuItem.Name = "entrarToolStripMenuItem";
+            this.entrarToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.entrarToolStripMenuItem.Text = "&Entrar...";
+            this.entrarToolStripMenuItem.Click += new System.EventHandler(this.entrarToolStripMenuItem_Click);
             // 
-            // recognizeToolStripMenuItem
+            // toolStripSeparator2
             // 
-            this.recognizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromPictureToolStripMenuItem1,
-            this.fromVideoToolStripMenuItem1});
-            this.recognizeToolStripMenuItem.Name = "recognizeToolStripMenuItem";
-            this.recognizeToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.recognizeToolStripMenuItem.Text = "&Reconhecer";
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(225, 6);
             // 
-            // fromPictureToolStripMenuItem1
+            // msg
             // 
-            this.fromPictureToolStripMenuItem1.Name = "fromPictureToolStripMenuItem1";
-            this.fromPictureToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.fromPictureToolStripMenuItem1.Text = "Utilizar &Imagem";
-            this.fromPictureToolStripMenuItem1.Click += new System.EventHandler(this.fromPictureToolStripMenuItem1_Click);
-            // 
-            // fromVideoToolStripMenuItem1
-            // 
-            this.fromVideoToolStripMenuItem1.Name = "fromVideoToolStripMenuItem1";
-            this.fromVideoToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
-            this.fromVideoToolStripMenuItem1.Text = "Utilizar &Vídeo";
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblUsername.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblUsername.Location = new System.Drawing.Point(12, 348);
-            this.lblUsername.MaximumSize = new System.Drawing.Size(9000, 9000);
-            this.lblUsername.MinimumSize = new System.Drawing.Size(10, 10);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(400, 31);
-            this.lblUsername.TabIndex = 4;
+            this.msg.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.msg.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.msg.Location = new System.Drawing.Point(12, 24);
+            this.msg.Name = "msg";
+            this.msg.Size = new System.Drawing.Size(400, 38);
+            this.msg.TabIndex = 1;
+            this.msg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 388);
-            this.Controls.Add(this.lblUsername);
-            this.Controls.Add(this.imgCamUser);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(424, 386);
+            this.Controls.Add(this.msg);
+            this.Controls.Add(this.img);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(440, 425);
+            this.MinimumSize = new System.Drawing.Size(440, 425);
             this.Name = "MainForm";
             this.Text = "Face Recognition";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.img)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -176,18 +156,16 @@ namespace FaceRecognition
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
-        private Emgu.CV.UI.ImageBox imgCamUser;
+        private Emgu.CV.UI.ImageBox img;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem trainToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fromVideoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem recognizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fromPictureToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem fromVideoToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem fromMultiPicturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearTrainedDataToolStripMenuItem;
-        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.ToolStripMenuItem cadastrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem entrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Label msg;
     }
 }
 

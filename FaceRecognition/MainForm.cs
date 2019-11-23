@@ -25,7 +25,6 @@ namespace FaceRecognition
 
         private void bckGroundTrainer_DoWork(object sender, DoWorkEventArgs e)
         {
-
             var worker = sender as BackgroundWorker;
             e.Result = TrainRecognizer(worker, e);
         }
@@ -52,16 +51,14 @@ namespace FaceRecognition
             }
             else if (e.Cancelled)
             {
-                lblUsername.Text = "Treinamento cancelado!";
+                System.Windows.Forms.MessageBox.Show( "Treinamento cancelado." );
             }
             else
             {
                 var result = (bool) e.Result;
-                lblUsername.Text = result ? "Treinamento foi concluído com êxito!" : "Treinamento mal sucedido!";
             }
         }
 
-        VideoCapture _capture = new VideoCapture(Emgu.CV.CvEnum.CaptureType.Winrt);
         private CascadeClassifier _cascadeClassifier;
         private RecognizerEngine _recognizerEngine;
         private readonly String _databasePath = Application.StartupPath + "/face_store.db";
@@ -96,18 +93,28 @@ namespace FaceRecognition
 
         void ClearTrainedFaces()
         {
+            
+            if (
+                MessageBox.Show( "Essa é uma ação destrutiva.\n\nVocê tem certeza que deseja prosseguir?", "Confirmação", MessageBoxButtons.YesNo )
+                    != DialogResult.Yes
+            )
+            {
+                MessageBox.Show("Ação cancelada com êxito.");
+                return;
+            }
 
             IDataStoreAccess dataStore = new DataStoreAccess(_databasePath);
 
-            var username = Guid.NewGuid().ToString();
-
-            var filePath = Application.StartupPath + String.Format("/{0}.bmp", username);
+            dataStore.ClearTrainedFaces();
 
             foreach (var file in new DirectoryInfo(Application.StartupPath).GetFiles("*.bmp")) {
                 file.Delete();
             }
 
-            MessageBox.Show(dataStore.ClearTrainedFaces(), "Salvar resultado", MessageBoxButtons.OK);
+            img.BackgroundImage = null;
+
+            msg.Text = "Dados foram esvaziados da base.";
+            msg.ForeColor = System.Drawing.Color.Black;
 
         }
 
@@ -122,7 +129,7 @@ namespace FaceRecognition
             try
             {
                 var img1 = WinformUtilities.RecognizeImage(img);
-                imgCamUser.Image = img1;
+                this.img.Image = img1;
             }
             catch (Exception ex)
             {
@@ -130,23 +137,62 @@ namespace FaceRecognition
             }
         }
 
-        private void fromMultiPicturesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var imgs = WinformUtilities.OpenMultiImageFile();
-            List<string> processed = new List<string>();
-            foreach (var img in imgs)
-                processed.Add(WinformUtilities.TrainImage(img)); //Append("," + WinformUtilities.TrainImage(img));
-            string regNames = String.Join("\n", processed.Where(v => v.Length > 0));
-            MessageBox.Show(
-                regNames.Length > 0 ?
-                string.Format("Imagens processadas:\n\n{0}", regNames)
-                : "Nenhuma imagem válida processada."
-            );
-        }
-
         private void clearTrainedDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearTrainedFaces();
+        }
+
+        private void entrarToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var img = WinformUtilities.OpenImageFile();
+            try
+            {
+                var img1 = WinformUtilities.RecognizeImage( img, msg );
+                this.img.Image = img1;
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.ToString() );
+            }
+        }
+
+        private void cadastrarToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var imgs = WinformUtilities.OpenMultiImageFile();
+
+            List<string> processed = new List<string>();
+
+            if ( imgs == null )
+                return;
+
+            var unidentified = 0;
+
+            var multiple = 0;
+
+            foreach ( var img in imgs )
+            {
+                try
+                {
+                    processed.Add( WinformUtilities.TrainImage( img ) );
+                }
+                catch (Exception ex)
+                {
+                    if ( ex.Message == "no_faces" )
+                        unidentified++;
+                    else if ( ex.Message == "multiple_faces" )
+                        multiple++;
+                    else
+                        MessageBox.Show(ex.Message);
+                }
+            }
+
+            string regNames = String.Join( "\n", processed.Where( v => v.Length > 0 ) );
+
+            MessageBox.Show(
+                regNames.Length > 0 ?
+                string.Format( "Imagens processadas:\n\n{0}\n\nImagens sem rosto identificado: {1}\nImagens com múltiplos rostos: {2}", regNames, unidentified, multiple)
+                : "Nenhuma imagem válida processada."
+            );
         }
     }
 

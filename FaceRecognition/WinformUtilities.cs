@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace FaceRecognition
@@ -114,9 +115,22 @@ namespace FaceRecognition
                     return null;
 
                 var grayframe = ImageFrame.Convert<Gray, byte>();
+
                 var faces = _cascadeClassifier.DetectMultiScale(grayframe, 1.1, 10, Size.Empty); //the actual face detection happens here
+
                 //int faceIndex = 1;
+                
+                if ( faces.Length == 0 )
+                {
+                    throw new Exception( "no_faces" );
+                }
+                else if ( faces.Length > 1 )
+                {
+                    throw new Exception( "multiple_faces" );
+                }
+
                 List<string> names = new List<string>();
+
                 foreach (var face in faces)
                 {
                     ImageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
@@ -158,11 +172,11 @@ namespace FaceRecognition
 
                     }
                 }
-                return string.Join(",", names.ToArray());
+                return string.Join(",", names.ToArray().Where(v => v.Length > 0));
             }
         }
 
-        public static Image<Bgr, Byte> RecognizeImage(Image img)
+        public static Image<Bgr, Byte> RecognizeImage(Image img, Label msgout = null)
         {
             if (img == null) return null;
             using (var ImageFrame = new Image<Bgr, Byte>(new Bitmap(img)))
@@ -170,39 +184,60 @@ namespace FaceRecognition
 
                 var _recognizerEngine = new RecognizerEngine(_databasePath, _trainerDataPath);
                 _recognizerEngine.TrainRecognizer();
-                if (ImageFrame == null)
-                    return null;
+                if ( ImageFrame == null )
+                {
+                    System.Windows.Forms.MessageBox.Show( "Nenhuma imagem fornecida." );
+                }
 
                 var grayframe = ImageFrame.Convert<Gray, byte>();
+
                 var faces = _cascadeClassifier.DetectMultiScale(grayframe, 1.1, 10, Size.Empty); //the actual face detection happens here
-                //int faceIndex = 1;
-                foreach (var face in faces)
+
+                if (faces.Length == 0)
                 {
-                    ImageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
-                    int predictedUserId;
-                    Bitmap map = ImageFrame.Copy(face).Bitmap;
-                    try
-                    {
-                        predictedUserId = _recognizerEngine.RecognizeUser(new Image<Gray, byte>(map));
-                        //Debug.WriteLine(predictedUserId);
-                    }
-                    catch { predictedUserId = -1; }
-                    if (predictedUserId == -1)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        //proceed to documents library
-                        IDataStoreAccess dataStore = new DataStoreAccess(_databasePath);
-                        var username = dataStore.GetUsername(predictedUserId);
-                        if (username != String.Empty)
-                        {
-                            ImageFrame.Draw(username, new Point(face.X, face.Y), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new Bgr(Color.Red), 2);
-                        }
-                    }
+                    System.Windows.Forms.MessageBox.Show( "Ops! Nenhum rosto foi identifcado.\n\nCarrege uma imagem com boa definição, tirada de ângulo frontal." );
                 }
+                
+                //int faceIndex = 1;
+                var face = faces[0];
+
+                ImageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
+
+                int predictedUserId;
+
+                Bitmap map = ImageFrame.Copy(face).Bitmap;
+
+                try
+                {
+                    predictedUserId = _recognizerEngine.RecognizeUser(new Image<Gray, byte>(map));
+                    //Debug.WriteLine(predictedUserId);
+                }
+                catch { predictedUserId = -1; }
+
+                var username = "";
+
+                if ( predictedUserId != -1 )
+                {
+                    //proceed to documents library
+                    IDataStoreAccess dataStore = new DataStoreAccess(_databasePath);
+
+                    username = dataStore.GetUsername(predictedUserId);
+                }
+
+                if ( predictedUserId == -1 || username.Length == 0 )
+                {
+                    msgout.Text = "Atenção: usuário não identificado.";
+                    msgout.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    msgout.Text = "Olá, " + username + "! Seu acesso está autorizado. :)";
+                    msgout.ForeColor = System.Drawing.Color.Blue;
+                    ImageFrame.Draw( username, new Point( face.X, face.Y ), Emgu.CV.CvEnum.FontFace.HersheyPlain, 2, new Bgr( Color.Red ), 2 );
+                }
+
                 return ImageFrame.Copy();
+
             }
         }
 
