@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FaceRecognition
 {
@@ -73,9 +74,9 @@ namespace FaceRecognition
             catch (Exception ex)
             {
                 if ( ex.Message != "OpenCV: Unsupported file storage format" )
-                    System.Windows.Forms.MessageBox.Show( "Mensagem de erro desconhecida:" + ex.Message );
+                    MessageBox.Show( "Mensagem de erro desconhecida:" + ex.Message );
                 else
-                    System.Windows.Forms.MessageBox.Show( "A imagem fornecida não possui um formato válido." );
+                    MessageBox.Show( "A imagem fornecida não possui um formato válido." );
             }
 
             return -1;

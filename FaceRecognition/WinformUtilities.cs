@@ -119,7 +119,19 @@ namespace FaceRecognition
 
                 //int faceIndex = 1;
 
+                if ( faces.Length == 0 )
+                {
+                    MessageBox.Show( "Nenhum rosto identificado." );
+                    return null;
+                }
+                else if ( faces.Length > 1 )
+                {
+                    MessageBox.Show( "Mais de um rosto identificado." );
+                    return null;
+                }
+
                 List<string> names = new List<string>();
+
                 foreach (var face in faces)
                 {
                     ImageFrame.Draw(face, new Bgr(Color.BurlyWood), 3); //the detected face(s) is highlighted here using a box that is drawn around it/them
